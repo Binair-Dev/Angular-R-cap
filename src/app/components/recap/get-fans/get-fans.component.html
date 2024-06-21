@@ -1,0 +1,17 @@
+  @if (fans.length > 0) {
+  <ul>
+      <li *ngFor="let fan of fans">
+          <a routerLink="/fan/fan/{{fan.id}}">{{ fan.nom }} ({{ fan.date_de_naissance }})</a>
+          <ul>
+              <li *ngFor="let element of fan.series; let index = index">
+                  {{index + 1}} - {{ element }}
+              </li>
+          </ul>
+          <button (click)="updateFan(fan)">Update</button>
+          <button (click)="deleteFan(fan)">Supprimer</button>
+      </li>
+  </ul>
+  }
+  @else {
+  <p>Aucun fan n'existe !</p>
+  }

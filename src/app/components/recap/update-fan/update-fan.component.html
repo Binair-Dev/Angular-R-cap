@@ -1,0 +1,36 @@
+<form [formGroup]="formulaire" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="nom">Nom</label>
+    <input type="text" class="form-control" id="nom" formControlName="nom" placeholder="Entrez votre nom">
+    <div *ngIf="formulaire.controls['nom'].errors?.['required'] && formulaire.controls['nom'].touched" style="color: red;">
+      Le nom est requis.
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="date_de_naissance">Date de naissance</label>
+    <input type="date" class="form-control" id="date_de_naissance" formControlName="date_de_naissance">
+    <div *ngIf="formulaire.controls['date_de_naissance'].errors?.['required'] && formulaire.controls['date_de_naissance'].touched" style="color: red;">
+      La date de naissance est requise.
+    </div>
+    <div *ngIf="formulaire.controls['date_de_naissance'].errors?.['minimumAge'] && formulaire.controls['date_de_naissance'].touched" style="color: red;">
+      Vous devez avoir au moins 13 ans.
+    </div>
+  </div>
+
+<div [formGroup]="formulaire">
+  <div formArrayName="series">
+    <div *ngFor="let serie of series.controls; let i = index" [formGroupName]="i">
+        <label for="series-{{i}}">Série {{i}}</label>
+        <input type="text" class="form-control" id="series-{{i}}" formControlName="name" placeholder="Entrez vos séries">
+        <button type="button" (click)="removeSerie(i)">Supprimer</button>
+        <div *ngIf="serie.get('name')?.errors?.['required'] && serie.get('name')?.touched" style="color: red;">
+            Les séries sont requises.
+        </div>
+    </div>
+  </div>
+</div>
+  <button type="button" (click)="addSerie()">Ajouter une série</button>
+  <br>
+  <button [disabled]="formulaire.invalid" type="submit">Soumettre</button>
+</form>

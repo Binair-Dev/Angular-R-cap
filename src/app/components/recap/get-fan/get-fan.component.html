@@ -1,0 +1,16 @@
+<h3>Détails d'un fan</h3>
+@if (fan == undefined) {
+<p>
+    Ce fan n'existe pas !
+</p>
+}
+@else {
+{{ fan.nom }} ({{ fan.date_de_naissance }})
+<ul>
+    <li *ngFor="let element of fan.series; let index = index">
+        {{index + 1}} - {{ element }}
+    </li>
+</ul>
+<button (click)="updateFan(fan)">Update</button>
+<button (click)="deleteFan(fan)">Supprimer</button>
+}
